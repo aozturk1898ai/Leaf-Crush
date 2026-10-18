@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no" />
+  <meta name="description" content="Leaf Crush - a match-three puzzle where you line up leaves instead of candy. 400 chapters across twenty gardens." />
+  <meta name="theme-color" content="#0f1a12" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Leaf Crush" />
+  <title>Leaf Crush — 400 Leaf-Matching Chapters</title>
+  <link rel="icon" type="image/png" sizes="64x64" href="icons/icon-64.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app" class="app">
+
+    <!-- ===================== CHAPTER MAP ===================== -->
+    <section class="screen screen-map is-active" id="screen-map">
+      <header class="map-head">
+        <div class="map-top">
+          <div class="map-title">
+            <h1><span class="logo-leaf" id="logo-leaf"></span>Leaf Crush</h1>
+            <p class="tagline">Line up the leaves. Clear all 400 chapters.</p>
+          </div>
+          <button class="energy-pill" id="energy-pill-map" type="button" aria-label="Energy">
+            <span class="energy-heart" aria-hidden="true"></span>
+            <span class="energy-count" id="energy-count-map">5</span>
+            <span class="energy-timer" id="energy-timer-map"></span>
+          </button>
+        </div>
+        <div class="map-stats">
+          <div class="stat"><span class="stat-value" id="stat-stars">0</span><span class="stat-label">stars</span></div>
+          <div class="stat"><span class="stat-value" id="stat-cleared">0</span><span class="stat-label">cleared</span></div>
+          <div class="stat"><span class="stat-value" id="stat-total">400</span><span class="stat-label">chapters</span></div>
+          <div class="stat"><span class="stat-value" id="stat-albums">0</span><span class="stat-label">albums</span></div>
+        </div>
+        <div class="map-nav">
+          <button class="nav-chip" id="btn-album" type="button">
+            <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="4" width="12" height="16" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M18 6.5v13.5a2 2 0 0 1-2 2H6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="9.5" cy="10" r="2.6" fill="currentColor" opacity=".85"/></svg></span>
+            Albums
+          </button>
+          <button class="nav-chip" id="btn-rank" type="button">
+            <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4h10v5a5 5 0 0 1-10 0z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 5.5H4.4A2.4 2.4 0 0 0 7 10M17 5.5h2.6A2.4 2.4 0 0 1 17 10" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 14v3.4M8.6 20h6.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+            Ranking
+          </button>
+          <button class="nav-chip nav-chip-market" id="btn-market" type="button" aria-label="Market" title="Market">
+            <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3c4.4 2.6 7 6.4 7 10.2A7 7 0 0 1 12 21a7 7 0 0 1-7-7.8C5 9.4 7.6 5.6 12 3z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 21V9.6M12 14.4l3.2-2.6M12 12l-3.2-2.4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></span>
+            <b id="stat-seeds">0</b>
+          </button>
+        </div>
+      </header>
+
+      <nav class="garden-tabs" id="garden-tabs" aria-label="Gardens"></nav>
+
+      <div class="garden-banner" id="garden-banner"></div>
+
+      <div class="chapter-grid" id="chapter-grid"></div>
+
+      <footer class="map-foot">
+        <button class="btn btn-primary btn-wide" id="btn-continue">Continue</button>
+        <button class="btn btn-ghost" id="btn-sound-map" aria-label="Toggle sound">Sound: on</button>
+        <button class="btn btn-ghost btn-danger" id="btn-reset">Reset progress</button>
+      </footer>
+    </section>
+
+    <!-- ===================== BOARD ===================== -->
+    <section class="screen screen-game" id="screen-game">
+      <header class="game-head">
+        <button class="ghost-btn" id="btn-back" aria-label="Back to chapters">
+          <span class="ghost-icon">&#8249;</span><span>Chapters</span>
+        </button>
+        <div class="chapter-chip">
+          <span class="game-chapter-no" id="game-num">1</span>
+          <span class="chapter-name" id="game-name">First Sprout</span>
+        </div>
+        <button class="energy-pill energy-pill-sm" id="energy-pill-game" type="button" aria-label="Energy">
+          <span class="energy-heart" aria-hidden="true"></span>
+          <span class="energy-count" id="energy-count-game">5</span>
+        </button>
+        <button class="ghost-btn ghost-btn-icon" id="btn-sound" aria-label="Toggle sound">&#128266;</button>
+      </header>
+
+      <div class="objectives" id="objectives" aria-live="polite"></div>
+
+      <div class="bag-strip" id="bag-strip"></div>
+
+      <div class="board-wrap" id="board-wrap">
+        <div class="board" id="board"></div>
+      </div>
+
+      <footer class="game-foot">
+        <div class="meter" id="meter-moves">
+          <span class="meter-value" id="moves-left">0</span>
+          <span class="meter-label">moves</span>
+        </div>
+        <div class="meter meter-score">
+          <span class="meter-value" id="score">0</span>
+          <span class="meter-label" id="score-target">/ 0</span>
+        </div>
+        <div class="foot-actions">
+          <button class="btn btn-ghost btn-sm" id="btn-hint">Hint</button>
+          <button class="btn btn-ghost btn-sm" id="btn-restart">Restart</button>
+        </div>
+      </footer>
+    </section>
+
+    <!-- ===================== ALBUM ===================== -->
+    <section class="screen screen-album" id="screen-album">
+      <header class="sub-head">
+        <button class="ghost-btn" id="btn-album-back" aria-label="Back to chapters">
+          <span class="ghost-icon">&#8249;</span><span>Gardens</span>
+        </button>
+        <div class="sub-title">
+          <strong id="album-title">Album</strong>
+          <span id="album-sub">&nbsp;</span>
+        </div>
+        <span class="sub-badge" id="album-badge-slot"></span>
+      </header>
+      <div class="album-tabs" id="album-tabs" aria-label="Albums"></div>
+      <div class="album-progress" id="album-progress"></div>
+      <div class="album-grid" id="album-grid"></div>
+      <div class="album-foot" id="album-foot"></div>
+    </section>
+
+    <!-- ===================== LADDER ===================== -->
+    <section class="screen screen-rank" id="screen-rank">
+      <header class="sub-head">
+        <button class="ghost-btn" id="btn-rank-back" aria-label="Back to chapters">
+          <span class="ghost-icon">&#8249;</span><span>Gardens</span>
+        </button>
+        <div class="sub-title">
+          <strong>Ladder</strong>
+          <span id="rank-sub">This month</span>
+        </div>
+        <span class="sub-badge" aria-hidden="true">&#127942;</span>
+      </header>
+      <div class="rank-me" id="rank-me"></div>
+      <div class="rank-list" id="rank-list"></div>
+      <p class="rank-note" id="rank-note"></p>
+    </section>
+
+    <!-- ===================== MARKET ===================== -->
+    <section class="screen screen-market" id="screen-market">
+      <header class="sub-head">
+        <button class="ghost-btn" id="btn-market-back" aria-label="Back">
+          <span class="ghost-icon">&#8249;</span><span id="market-back-label">Gardens</span>
+        </button>
+        <div class="sub-title">
+          <strong>Market</strong>
+          <span id="market-sub">Spend your seeds</span>
+        </div>
+        <span class="wallet" id="market-wallet" title="Seeds">
+          <span class="wallet-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3c4.4 2.6 7 6.4 7 10.2A7 7 0 0 1 12 21a7 7 0 0 1-7-7.8C5 9.4 7.6 5.6 12 3z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 21V9.6M12 14.4l3.2-2.6M12 12l-3.2-2.4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></span>
+          <b id="market-seeds">0</b>
+        </span>
+      </header>
+      <div class="market-body" id="market-body"></div>
+      <p class="market-note">Seeds come from clearing chapters and finishing albums. Special pieces land in your bag and can be dropped onto the board mid-chapter.</p>
+    </section>
+
+    <!-- ===================== OVERLAYS ===================== -->
+    <div class="overlay hidden" id="overlay">
+      <div class="overlay-card" id="overlay-card"></div>
+    </div>
+    <div class="toast" id="toast"></div>
+
+    <!-- ===================== DEVELOPER PANEL ===================== -->
+    <div class="dev-panel hidden" id="dev-panel">
+      <header class="dev-head">
+        <strong>Developer</strong>
+        <button id="dev-close" aria-label="Close developer panel">&#10005;</button>
+      </header>
+      <div class="dev-body">
+        <div class="dev-field">
+          <label for="dev-chapter">Jump to chapter</label>
+          <div class="dev-jump">
+            <input id="dev-chapter" type="number" min="1" max="400" inputmode="numeric" value="1" />
+            <button class="btn btn-sm btn-primary" id="dev-go">Play</button>
+          </div>
+        </div>
+        <div class="dev-grid">
+          <button class="btn btn-sm" id="dev-unlock">God mode: off</button>
+          <button class="btn btn-sm" id="dev-lives">Refill energy</button>
+          <button class="btn btn-sm" id="dev-clear">Clear next</button>
+          <button class="btn btn-sm" id="dev-albums">Fill album</button>
+          <button class="btn btn-sm" id="dev-seeds">+40 seeds</button>
+          <button class="btn btn-sm" id="dev-bag">Special pieces</button>
+          <button class="btn btn-sm btn-danger" id="dev-reset">Reset save</button>
+        </div>
+        <p class="dev-info" id="dev-info"></p>
+      </div>
+    </div>
+  </div>
+
+  <noscript><div class="noscript">Leaf Crush needs JavaScript enabled to run.</div></noscript>
+
+  <script src="js/leaves.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/chapters.js"></script>
+  <script src="js/specimen.js"></script>
+  <script src="js/rank.js"></script>
+  <script src="js/market.js"></script>
+  <script src="js/ads.js"></script>
+  <script src="js/ads-h5.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/game.js"></script>
+  <script>
+    /* Installs the offline shell when served over http(s). A double-clicked
+       copy runs from file:// with no worker, which is also fine and quiet. */
+    if ("serviceWorker" in navigator && location.protocol !== "file:") {
+      navigator.serviceWorker.register("sw.js", { scope: "./" }).catch(function () {});
+    }
+  </script>
+</body>
+</html>

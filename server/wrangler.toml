@@ -1,0 +1,7 @@
+name = "leafcrush-ladder"
+main = "ladder-worker.mjs"
+compatibility_date = "2025-05-01"
+
+[[kv_namespaces]]
+binding = "LADDER"
+id = "PASTE_THE_ID_PRINTED_BY_wrangler_kv_namespace_create_LADDER"
